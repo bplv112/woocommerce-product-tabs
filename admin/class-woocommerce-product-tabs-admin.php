@@ -184,7 +184,6 @@ class Woocommerce_Product_Tabs_Admin {
 		wp_nonce_field( 'wpt_product_meta_box', 'wpt_meta_box_product_nonce' );
 
 		$required_tabs = $this->product_tabs_list;
-
 		// Check for All flag;
 		if ( ! empty( $required_tabs ) && is_array( $required_tabs ) ) {
 			foreach ( $required_tabs as $k => $t ) {
@@ -202,7 +201,9 @@ class Woocommerce_Product_Tabs_Admin {
 
 				echo '<h3><strong>' . esc_attr($tab->post_title) . '</strong></h3>';
 				$tab_value = get_post_meta( $post_id, '_wpt_field_'.$tab->post_name, true );
-
+				if(empty($tab_value)){
+					$tab_value = $tab->post_content;
+				}
 				$settings = array(
 					'textarea_name' => '_wpt_field_'.$tab->post_name,
 					'textarea_rows' => 10,
